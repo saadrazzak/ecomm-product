@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Logo from './Logo'
 import Menu from './Menu'
+import './header.css'
 function Header() {
     const headerStyle = {
         width: '100%',
@@ -19,7 +20,10 @@ function Header() {
       };
   return (
     <>
-    <Container style={{  width: '100%', maxWidth: '95%'}} >
+    <div id="scroll-container">
+      <div id="scroll-text"> Here's a React component that renders the provided HTML structure.</div>
+    </div>
+    <Container style={{  width: '100%', maxWidth: '100%'}} >
       <Row style={headerStyle}>
         <Col xs={2}> <Logo/></Col>
         <Col xs={8}> <Navbar/></Col>

@@ -2,6 +2,8 @@ import React from "react";
 import Home from "../pages/home/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "../component/header/Header";
+import Footer from '../component/footer/Footer'
+import './app.css'
 function App(params) {
   return (
     <>
@@ -12,6 +14,7 @@ function App(params) {
           <Route path="/home" element={<Home />} exact />
         </Routes>
       </BrowserRouter>
+      <Footer/>
     </>
   );
 }

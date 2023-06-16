@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = 'http://localhost:3001/users/';
+const URL = 'http://localhost:3001';
 
 class ProductService {
   static contactSvcObjRef;
@@ -13,8 +13,11 @@ class ProductService {
     return this.contactSvcObjRef;
   }
 
-  getUsers() {
-    return axios.get(URL);
+  getUsersData() {
+    return axios.get(URL+ '/users/');
+  }
+  getProductsData() {
+    return axios.get(URL+ '/products/');
   }
 }
 
