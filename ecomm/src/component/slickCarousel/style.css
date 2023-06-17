@@ -1,0 +1,12 @@
+
+.slick-arrow:before {
+    color: black;
+}
+
+.cardB{
+   margin: 30px;
+}
+.cardB .card {
+    border: none;
+    margin: 30px;
+   }
