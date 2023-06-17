@@ -8,10 +8,11 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { UserOutlined, HeartOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getCart } from "../../redux/actionCallbacks";
+import Badge from 'react-bootstrap/Badge';
 function Menu() {
 
   const dispatchRef = useDispatch();
-  
+
   const [modalShow, setModalShow] = React.useState(false);
   const cartOpen = useSelector(
     (combinedState) => combinedState.cartStateRef.isMiniCart
@@ -41,7 +42,7 @@ function Menu() {
           
           <Dropdown>
             <Dropdown.Toggle as='span' variant="success" id="dropdown-basic">
-            <UserOutlined />
+            <UserOutlined  style={{ fontSize: '20px' }} />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -51,11 +52,12 @@ function Menu() {
             </Dropdown>
         </Col>
         <Col style={logoStyle}>
-          <HeartOutlined onClick={() => setModalShow(true)} />
+          <HeartOutlined  style={{ fontSize: '20px' }} onClick={() => setModalShow(true)} />
           <Whishlist show={modalShow} onHide={() => setModalShow(false)} />
         </Col>
         <Col style={logoStyle}>
-         <ShoppingOutlined onClick={() => openMinicart()} />
+         <ShoppingOutlined style={{ fontSize: '20px' }} onClick={() => openMinicart()} />
+         <Badge pill bg="info">{cartInfo.length}</Badge>
          {cartOpen && <MiniBag />}
         </Col>
       </Row>

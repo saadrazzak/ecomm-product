@@ -9,7 +9,6 @@ import './header.css'
 function Header() {
     const headerStyle = {
         width: '100%',
-        height: '95px',
         textAlign: 'center',
         display: 'flex',
         alignItems: 'center',
@@ -17,14 +16,25 @@ function Header() {
         position: 'sticky',
         top: '0',
         zIndex: '100',
+        maxWidth: '100%',
+        background: 'white'
+      };
+      const rowStyle = {
+        width: '100%',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        maxWidth: '100%',
+        background: 'white'
       };
   return (
     <>
     <div id="scroll-container">
       <div id="scroll-text"> Here's a React component that renders the provided HTML structure.</div>
     </div>
-    <Container style={{  width: '100%', maxWidth: '100%'}} >
-      <Row style={headerStyle}>
+    <Container style={headerStyle} >
+      <Row style={rowStyle}>
         <Col xs={2}> <Logo/></Col>
         <Col xs={8}> <Navbar/></Col>
         <Col xs={2}><Menu/></Col>
