@@ -49,28 +49,20 @@ export const getCart = (data, isOpen) => {
             let sucessAction = getCartSuccessActionCreator(data, isOpen)
             dispatchFnRef(sucessAction)
         }else{
-            let failAction = getCartFailureActionCreator("not able the add the product", false )
+            let failAction = getCartFailureActionCreator("not able the add the product" )
             dispatchFnRef(failAction)
         }
     }
 }
 
-export const getWishlist = () => {
+export const getWishlist = (data) => {
     return (dispatchFnRef) => {
-        
-        ProductService.Create()
-            .getProductsData()
-            .then(
-                (resp) => {
-                    if (resp.data) {
-                        let sucessAction = getWishlistSuccessActionCreator(resp.data)
-                        dispatchFnRef(sucessAction)
-                    }
-                },
-                (err) => {
-                    let failAction = getWishlistFailureActionCreator(err.message)
-                    dispatchFnRef(failAction)
-                }
-            )
+        if (data) {
+            let sucessAction = getWishlistSuccessActionCreator(data)
+            dispatchFnRef(sucessAction)
+        }else{
+            let failAction = getWishlistFailureActionCreator("not able the add the product" )
+            dispatchFnRef(failAction)
+        }
     }
 }

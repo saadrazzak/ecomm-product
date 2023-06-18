@@ -1,8 +1,21 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
+import { useSelector, useDispatch } from "react-redux";
 
 function Whishlist(props) {
+
+  const productsInfo = useSelector(
+    (combinedState) => combinedState.productsStateRef.products
+  );
+
+  const whishListProducts = useSelector(
+    (combinedState) => combinedState.wishlistStateRef.wishlist
+  );
+  const displayProducts = Object.values(productsInfo);
+  
+  const filteredObjects = displayProducts.filter((obj) => whishListProducts.includes(obj.id));
+
   return (
     <Modal
       {...props}
@@ -16,35 +29,39 @@ function Whishlist(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
-        <div style={{display : 'flex'}}>
-        <Card style={ {width: '300px', margin: "20px", border: 'none'}} >
-                <Card.Img variant="top" src= "https://picsum.photos/200" />
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-                </Card>
-                <Card style={ {width: '300px', margin: "20px", border: 'none'}} >
-                <Card.Img variant="top" src= "https://picsum.photos/200" />
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-                </Card>
-        </div>
+        {whishListProducts.length ===0 ? 
+        <Card.Title>   Your have not added any item to your WishList</Card.Title>
+        : 
+         <div style={{display : 'flex'}}>
+         {filteredObjects.map((product, i) => {
+             return (
+               <div key={i}>
+                  <Card style={{ width: '18rem' }}>
+                   <Card.Body>
+                     <Card.Title> {product.name}</Card.Title>
+                     <Card.Subtitle className="mb-2 text-muted"> ${product.price}</Card.Subtitle>
+                     <Card.Text>
+                       {product.brand}
+                     </Card.Text>
+                    
+                     <Button
+                      variant="outline-secondary"
+                    >
+                      Remove
+                    </Button>
+                    <Button
+                      variant="outline-primary"
+                    >
+                      More details
+                    </Button>
+                   </Card.Body>
+                 </Card>
+               </div>
+             );
+           })}
+         </div>
+        }
+       
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Slider from "react-slick";
@@ -6,14 +6,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts, getCart } from "../../redux/actionCallbacks";
+import { getProducts, getCart, getWishlist } from "../../redux/actionCallbacks";
 import MiniBag from "../miniBag/miniBag";
+import { HeartOutlined, HeartFilled} from "@ant-design/icons";
 
 function SlickCarousel() {
+  const [wish, setWish] = useState(false)
   const productsInfo = useSelector(
     (combinedState) => combinedState.productsStateRef.products
   );
 
+  const whishListProducts = useSelector(
+    (combinedState) => combinedState.wishlistStateRef.wishlist
+  );
   const cartInfo = useSelector(
     (combinedState) => combinedState.cartStateRef.cart
   );
@@ -69,6 +74,14 @@ function SlickCarousel() {
       dispatchRef(respCallBackCart);
     }
   };
+  const setProductWishlist=(id)=>{
+    setWish(!wish)
+    const Product = whishListProducts
+    Product.push(id)
+    let respCallBack = getWishlist(Product);
+    dispatchRef(respCallBack);
+  }
+  
   return (
     <>
       <div
@@ -86,6 +99,8 @@ function SlickCarousel() {
                   <Card.Img variant="top" src={product.imageURL} />
                   <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
+                    {whishListProducts?.includes(product.id)? <HeartFilled style={{ fontSize: '20px' }} /> :  <HeartOutlined onClick={()=>setProductWishlist(product.id)}  /> }
+                   
                     <Card.Text>
                       Some quick make up the bulk of the card's content.
                     </Card.Text>
