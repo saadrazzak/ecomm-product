@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+import { Button } from "antd";
 import Card from "react-bootstrap/Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,10 +8,15 @@ import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts, getCart, getWishlist } from "../../redux/actionCallbacks";
 import MiniBag from "../miniBag/miniBag";
-import { HeartOutlined, HeartFilled} from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, ShoppingCartOutlined} from "@ant-design/icons";
+import { Link } from 'react-router-dom';
+import { createFromIconfontCN } from '@ant-design/icons';
+import { Space } from 'antd';
+
 
 function SlickCarousel() {
   const [wish, setWish] = useState(false)
+  // const [key, setKey] = useState('men');
   const productsInfo = useSelector(
     (combinedState) => combinedState.productsStateRef.products
   );
@@ -26,7 +31,15 @@ function SlickCarousel() {
     (combinedState) => combinedState.cartStateRef.isMiniCart
   );
   const displayProducts = Object.values(productsInfo);
+  const IconFont = createFromIconfontCN({
+    scriptUrl: [
+      '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overridden)
+    ],
+  });
 
+  const mensProducts = displayProducts.filter(p => p.gender === 'MEN' && p.category !== 'RUNNING')
+  const womensProducts = displayProducts.filter(p => p.gender === 'WOMEN' && p.category !== 'RUNNING')
+  console.log(mensProducts, womensProducts)
   const dispatchRef = useDispatch();
 
   useEffect(() => {
@@ -89,34 +102,82 @@ function SlickCarousel() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: 'column'
         }}
       >
+        <h1>MEN'S BESTSELLING'S</h1>
         <Slider style={{ width: "90%" }} {...settings}>
-          {displayProducts.map((product, i) => {
+          {mensProducts.map((product, i) => {
             return (
               <div className="cardB" key={i}>
                 <Card>
                   <Card.Img variant="top" src={product.imageURL} />
                   <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
-                    {whishListProducts?.includes(product.id)? <HeartFilled style={{ fontSize: '20px' }} /> :  <HeartOutlined onClick={()=>setProductWishlist(product.id)}  /> }
-                   
+                    {whishListProducts?.includes(product.id)? <HeartFilled style={{ fontSize: '20px', position: 'absolute', right: '20px' , top: '10px'}} /> :  <HeartOutlined  style={{ fontSize: '20px', position: 'absolute', right: '20px', top: '10px' }} onClick={()=>setProductWishlist(product.id)}  /> }
                     <Card.Text>
-                      Some quick make up the bulk of the card's content.
+                    {product.brand}
                     </Card.Text>
                     <Button
-                      variant="outline-secondary"
                       onClick={() => addProductToCart(product.id)}
+                      icon={ cartInfo.some(prod => prod.id === product.id) ? <Space>
+                        <IconFont style={{ fontSize: '20px' }}  type="icon-shoppingcart" />
+                      </Space>:<ShoppingCartOutlined style={{ fontSize: '20px' }} /> }
                     >
-                      Add to cart
+                     {cartInfo.some(prod => prod.id === product.id) ? 'Added in cart':'Add to cart'}
                     </Button>
+                    <Button> <Link to={`/productDetails/${product.id}`}>Details</Link></Button>
                   </Card.Body>
                 </Card>
+               
               </div>
             );
           })}
         </Slider>
       </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: 'column'
+        }}
+      >
+            <h1>WOMEN'S BESTSELLING'S</h1>
+
+        <Slider style={{ width: "90%" }} {...settings}>
+          {womensProducts.map((product, i) => {
+            return (
+              <div className="cardB" key={i}>
+                <Card>
+                  <Card.Img variant="top" src={product.imageURL} />
+                  <Card.Body>
+                    <Card.Title>{product.name}</Card.Title>
+                    {whishListProducts?.includes(product.id)? <HeartFilled  style={{ fontSize: '20px', position: 'absolute', right: '20px' , top: '10px' }}/> :  <HeartOutlined  style={{ fontSize: '20px', position: 'absolute', right: '20px', top: '10px' }} onClick={()=>setProductWishlist(product.id)}  /> }
+                   
+                    <Card.Text>
+                     {product.brand}
+                    </Card.Text>
+                    <Button
+                      onClick={() => addProductToCart(product.id)}
+                      icon={ cartInfo.some(prod => prod.id === product.id) ? <Space>
+                        <IconFont style={{ fontSize: '20px' }}  type="icon-shoppingcart" />
+                      </Space>:<ShoppingCartOutlined style={{ fontSize: '20px' }} /> }
+                    >
+                     {cartInfo.some(prod => prod.id === product.id) ? 'Added in cart':'Add to cart'}
+                    </Button>
+                    <Button> <Link to={`/productDetails/${product.id}`}>Details</Link></Button>
+                  </Card.Body>
+                </Card>
+               
+                
+              </div>
+            );
+          })}
+        </Slider>
+      </div>
+
+
       {cartOpen && <MiniBag />}
     </>
   );

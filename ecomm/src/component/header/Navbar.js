@@ -1,6 +1,8 @@
 import Nav from "react-bootstrap/Nav";
 import Collapse from "react-bootstrap/Collapse";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
+
 function Navbar() {
   const [openMen, setMen] = useState(false);
   const [openWomen, setWomen] = useState(false);
@@ -34,7 +36,7 @@ function Navbar() {
     <>
       <Nav className="justify-content-center" activeKey="/home">
         <Nav.Item>
-          <Nav.Link
+          <Nav.Link to={`/productListing/${'men'}`} as={Link}
             style={openMen ? textStyle2 : textStyle}
             onMouseEnter={(eve) => {
               setMen(true);
@@ -49,6 +51,7 @@ function Navbar() {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link
+            to={`/productListing/${'women'}`} as={Link}
             style={openWomen ? textStyle2 : textStyle}
             onMouseEnter={(eve) => {
               setWomen(true);
@@ -62,7 +65,9 @@ function Navbar() {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link style={textStyle} eventKey="link-2">
+          <Nav.Link 
+            to={`/productListing/${'kid'}`} as={Link}
+          style={textStyle} eventKey="link-2">
             KIDS
           </Nav.Link>
         </Nav.Item>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import imageBlack  from "../../assets/logo-1.png";
 import imageColor  from "../../assets/logo-2.png";
+import { Link } from 'react-router-dom';
+
 function Logo() {
   const [isLogoToggled, setIsLogoToggled] = useState(false);
-
   const handleLogoToggle = () => {
     setIsLogoToggled(!isLogoToggled);
   };
@@ -13,6 +14,7 @@ function Logo() {
   };
   return (
     <div>
+      <Link to={'/'}>
       <img
        style={logoStyle}
         src={isLogoToggled ? imageBlack : imageColor}
@@ -20,6 +22,8 @@ function Logo() {
         onMouseEnter={handleLogoToggle}
         onMouseLeave={handleLogoToggle}
       />
+      </Link>
+    
     </div>
  
   );

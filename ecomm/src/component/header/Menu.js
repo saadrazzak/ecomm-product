@@ -8,7 +8,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { UserOutlined, HeartOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getCart } from "../../redux/actionCallbacks";
-import Badge from 'react-bootstrap/Badge';
+import { Avatar, Badge } from 'antd';
+
+// import Badge from 'react-bootstrap/Badge';
 function Menu() {
 
   const dispatchRef = useDispatch();
@@ -56,8 +58,13 @@ function Menu() {
           <Whishlist show={modalShow} onHide={() => setModalShow(false)} />
         </Col>
         <Col style={logoStyle}>
-         <ShoppingOutlined style={{ fontSize: '20px' }} onClick={() => openMinicart()} />
-         <Badge pill bg="info">{cartInfo.length}</Badge>
+         
+
+         {/* <Badge pill bg="info">{cartInfo.length}</Badge> */}
+
+          <Badge size="small" count={cartInfo.length}>
+          <ShoppingOutlined style={{ fontSize: '20px' }} onClick={() => openMinicart()} />
+          </Badge>
          {cartOpen && <MiniBag />}
         </Col>
       </Row>
