@@ -1,0 +1,18 @@
+.ant-popover-content{
+    z-index: 9999;
+    right: 25px;
+    bottom: 4px;
+}
+.offcanvas{
+    z-index: 999 !important;
+    width: 30% !important;
+
+}
+
+.offcanvas-backdrop{
+    z-index: 999 !important;
+}   
+
+.card-body .card-title{
+    width: 85% !important;
+}

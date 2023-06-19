@@ -1,0 +1,15 @@
+.category-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 75%;
+  }
+  .category{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .product-card {
+    width: 30%; /* Adjust this percentage to fit your layout */
+    margin-bottom: 20px;
+  }
